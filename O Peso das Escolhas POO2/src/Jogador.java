@@ -29,7 +29,7 @@ public class Jogador {
     public Jogador() {
         this.x = 0;
         this.y = 0;
-        this.velocidade = 6;
+        this.velocidade = 3;
         this.direcao = "frente";
         this.frameAnimacao = 0;
         this.contadorAnimacao = 0;
