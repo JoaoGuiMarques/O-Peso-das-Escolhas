@@ -1,5 +1,7 @@
 # 🎮 O Peso das Escolhas
 
+![Capa](screenshots/image1.png)
+
 Projeto desenvolvido para a disciplina de Projeto Aplicado II.
 
 ---
@@ -57,3 +59,33 @@ O jogo aborda situações cotidianas de violência contra a mulher — como mani
 - Felipe Gabriel Almeida Alves
 - João Guilherme Marques
 - Marcos Rafael Ferreira Bandeira 
+
+## 📸 Galeria de Imagens
+
+### 🎬 Apresentação do jogo
+
+![Apresentação](screenshots/image2.png)
+
+---
+
+### 💡 Tela de dicas
+
+![Dicas](screenshots/image3.png)
+
+---
+
+### 🗺️ Mapa 1
+
+![Mapa 1](screenshots/image4.png)
+
+---
+
+### 💬 Interação com NPC - Mapa 2
+
+![NPC Mapa 2](screenshots/image5.png)
+
+---
+
+### 💬 Interação com NPC - Mapa 3
+
+![NPC Mapa 3](screenshots/image6.png)
