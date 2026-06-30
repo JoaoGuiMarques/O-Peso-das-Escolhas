@@ -54,6 +54,6 @@ O jogo aborda situações cotidianas de violência contra a mulher — como mani
 
 ## 👨‍💻 Desenvolvido por
 
-Felipe Gabriel Almeida Alves
-João Guilherme Marques
-Marcos Rafael Ferreira Bandeira 
+- Felipe Gabriel Almeida Alves
+- João Guilherme Marques
+- Marcos Rafael Ferreira Bandeira 
