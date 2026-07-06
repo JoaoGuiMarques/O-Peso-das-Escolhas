@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         // ===== janela unica =====
         JFrame janela = new JFrame("O Peso das Escolhas");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
