@@ -2,6 +2,8 @@
 
 ![Capa](screenshots/image1.png)
 
+[![Download](https://img.shields.io/badge/🎮-Baixar%20Última%20Versão-blue?style=for-the-badge)](https://github.com/JoaoGuiMarques/O-Peso-das-Escolhas/releases/latest)
+
 Projeto desenvolvido para a disciplina de Projeto Aplicado II.
 
 ---
