@@ -141,7 +141,7 @@ public class Telas {
             public void componentResized(ComponentEvent e) {
                 int w = painel.getWidth();
                 int h = painel.getHeight();
-                finalizar.setBounds(w / 5 - 140, (int)(h * 0.85), 280, 42);
+                finalizar.setBounds((int)(w * 0.19) - 140, (int)(h * 0.85), 280, 42);
             }
         });
 

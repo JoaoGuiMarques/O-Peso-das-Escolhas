@@ -9,8 +9,11 @@ public class NPC {
     private int x;
     private int y;
 
-    // ===== imagem =====
+    // ===== imagem (retrato do npc, exibido andando no mapa) =====
     private Image imagem;
+
+    // ===== imagem da situacao-problema (exibida no dialogo da pergunta) =====
+    private Image imagemViolencia;
 
     // ===== pergunta e opcoes de cada pergunta =====
     private String pergunta;
@@ -18,20 +21,37 @@ public class NPC {
     private int opcaoCorreta;
     private int opcaoErrada;
 
+    // ===== explicacao detalhada mostrada como feedback apos a resposta =====
+    private String explicacao;
+
+    // ===== categoria/tipo de violencia (usado no resumo da tela final) =====
+    private String categoria;
+
     // ===== controle das perguntas =====
     private boolean perguntaFeita;
 
+    // ===== construtor com imagem de situacao especifica =====
+    public NPC(double xP, double yP, String caminhoImagem, String caminhoImagemViolencia,
+               String pergunta, String[] opcoes,
+               int opcaoCorreta, int opcaoErrada, String explicacao, String categoria) {
+        this.xProporcional  = xP;
+        this.yProporcional  = yP;
+        this.imagem         = new ImageIcon(caminhoImagem).getImage();
+        this.imagemViolencia = new ImageIcon(caminhoImagemViolencia).getImage();
+        this.pergunta       = pergunta;
+        this.opcoes         = opcoes;
+        this.opcaoCorreta   = opcaoCorreta;
+        this.opcaoErrada    = opcaoErrada;
+        this.explicacao     = explicacao;
+        this.categoria      = categoria;
+        this.perguntaFeita  = false;
+    }
+
+    // ===== construtor sem imagem de situacao (usa o retrato do npc no dialogo) =====
     public NPC(double xP, double yP, String caminhoImagem,
                String pergunta, String[] opcoes,
-               int opcaoCorreta, int opcaoErrada) {
-        this.xProporcional = xP;
-        this.yProporcional = yP;
-        this.imagem        = new ImageIcon(caminhoImagem).getImage();
-        this.pergunta      = pergunta;
-        this.opcoes        = opcoes;
-        this.opcaoCorreta  = opcaoCorreta;
-        this.opcaoErrada   = opcaoErrada;
-        this.perguntaFeita = false;
+               int opcaoCorreta, int opcaoErrada, String explicacao, String categoria) {
+        this(xP, yP, caminhoImagem, caminhoImagem, pergunta, opcoes, opcaoCorreta, opcaoErrada, explicacao, categoria);
     }
 
     // ===== atualiza posicao baseada no tamanho da tela =====
@@ -54,6 +74,21 @@ public class NPC {
         return -10;
     }
 
+    // ===== feedback detalhado exibido apos a resposta (em vez de mostrar so a pontuacao) =====
+    public String getFeedback(int escolha) {
+        StringBuilder sb = new StringBuilder();
+
+        if (escolha == opcaoCorreta) {
+            sb.append("Boa escolha!\n\n");
+        } else {
+            sb.append("Essa não era a melhor escolha.\n\n");
+            sb.append("A resposta mais adequada seria:\n\"").append(opcoes[opcaoCorreta]).append("\"\n\n");
+        }
+
+        sb.append(explicacao);
+        return sb.toString();
+    }
+
     // ===== hitbox =====
     public Rectangle getHitbox(int W, int H) {
         return new Rectangle(x, y, getHitboxLargura(W), getHitboxAltura(H));
@@ -72,6 +107,9 @@ public class NPC {
     public void setPerguntaFeita(boolean feita) { this.perguntaFeita = feita; }
     public String getPergunta() { return pergunta; }
     public String[] getOpcoes() { return opcoes; }
+    public Image getImagem() { return imagem; }
+    public Image getImagemViolencia() { return imagemViolencia; }
+    public String getCategoria() { return categoria; }
     public int getX() { return x; }
     public int getY() { return y; }
 }

@@ -29,7 +29,7 @@ public class Jogador {
     public Jogador() {
         this.x = 0;
         this.y = 0;
-        this.velocidade = 3;
+        this.velocidade = 4;
         this.direcao = "frente";
         this.frameAnimacao = 0;
         this.contadorAnimacao = 0;
@@ -53,9 +53,9 @@ public class Jogador {
     }
 
     // ===== resetar posição (ao trocar de mapa) =====
-    public void resetarPosicao() {
-        x = 0;
-        y = 0;
+    public void resetarPosicao(double xProp, double yProp, int W, int H) {
+        x = (int)(W * xProp);
+        y = (int)(H * yProp);
     }
 
     // ===== movimentação =====
