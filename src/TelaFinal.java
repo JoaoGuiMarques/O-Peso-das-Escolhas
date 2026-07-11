@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class TelaFinal {
@@ -56,7 +59,9 @@ public class TelaFinal {
         cartao.setOpaque(false);
         cartao.setLayout(new BoxLayout(cartao, BoxLayout.Y_AXIS));
         cartao.setBorder(BorderFactory.createEmptyBorder(25, 40, 25, 40));
-        cartao.setPreferredSize(new Dimension(640, 830));
+        cartao.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // (sem tamanho fixo aqui: o BoxLayout agora calcula a altura certa
+        // com base no conteudo real, entao nada fica cortado ou sobreposto)
 
         // ===== titulo =====
         JLabel titulo = new JLabel("▶ FIM DE JOGO!");
@@ -73,17 +78,9 @@ public class TelaFinal {
         labelPontos.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
 
         // ===== feedback educativo, de acordo com a faixa de pontuacao =====
-        JTextArea textoFeedback = new JTextArea(gerarFeedback(pontos));
-        textoFeedback.setFont(FONTE_TEXTO);
-        textoFeedback.setForeground(COR_TEXTO);
-        textoFeedback.setBackground(COR_FUNDO);
-        textoFeedback.setEditable(false);
-        textoFeedback.setFocusable(false);
-        textoFeedback.setLineWrap(true);
-        textoFeedback.setWrapStyleWord(true);
-        textoFeedback.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textoFeedback.setMaximumSize(new Dimension(560, 140));
-        textoFeedback.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
+        // quebra de linha calculada manualmente com FontMetrics (mais confiavel que HTML em JLabel)
+        JPanel blocoFeedback = criarBlocoTexto(gerarFeedback(pontos), FONTE_TEXTO, COR_TEXTO, 520);
+        blocoFeedback.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         // ===== titulo do resumo por categoria =====
         JLabel labelResumo = new JLabel("RESUMO POR TIPO DE VIOLÊNCIA");
@@ -97,7 +94,7 @@ public class TelaFinal {
         painelResumo.setLayout(new BoxLayout(painelResumo, BoxLayout.Y_AXIS));
         painelResumo.setOpaque(false);
         painelResumo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelResumo.setMaximumSize(new Dimension(560, 200));
+        painelResumo.setMaximumSize(new Dimension(560, 260));
         painelResumo.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         for (Map.Entry<String, int[]> entrada : resultadosPorCategoria.entrySet()) {
@@ -113,27 +110,17 @@ public class TelaFinal {
         caixaContato.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(COR_BORDA, 2),
                 BorderFactory.createEmptyBorder(12, 16, 12, 16)));
-        caixaContato.setMaximumSize(new Dimension(560, 150));
+        caixaContato.setMaximumSize(new Dimension(580, Integer.MAX_VALUE));
 
-        JLabel tituloContato = new JLabel("PRECISA DE AJUDA OU CONHECE ALGUÉM QUE PRECISA?");
-        tituloContato.setFont(FONTE_SUBTITULO);
-        tituloContato.setForeground(COR_TITULO);
-        tituloContato.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel blocoTituloContato = criarBlocoTexto("PRECISA DE AJUDA OU CONHECE ALGUÉM QUE PRECISA?", FONTE_SUBTITULO, COR_TITULO, 500);
+        JPanel blocoDisque100 = criarBlocoTexto("Disque 100 — Direitos Humanos (denúncias em geral)", FONTE_TEXTO, COR_TEXTO, 500);
+        JPanel blocoDisque180 = criarBlocoTexto("Disque 180 — Central de Atendimento à Mulher", FONTE_TEXTO, COR_TEXTO, 500);
 
-        JLabel disque100 = new JLabel("Disque 100 — Direitos Humanos (denúncias em geral)");
-        disque100.setFont(FONTE_TEXTO);
-        disque100.setForeground(COR_TEXTO);
-        disque100.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel disque180 = new JLabel("Disque 180 — Central de Atendimento à Mulher");
-        disque180.setFont(FONTE_TEXTO);
-        disque180.setForeground(COR_TEXTO);
-        disque180.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        caixaContato.add(tituloContato);
+        caixaContato.add(blocoTituloContato);
         caixaContato.add(Box.createVerticalStrut(8));
-        caixaContato.add(disque100);
-        caixaContato.add(disque180);
+        caixaContato.add(blocoDisque100);
+        caixaContato.add(Box.createVerticalStrut(4));
+        caixaContato.add(blocoDisque180);
 
         // ===== botoes finais, reaproveitando o estilo ja usado nas outras telas =====
         JButton botaoJogarNovamente = Telas.criarBotaoEstilizado("JOGAR NOVAMENTE");
@@ -151,7 +138,7 @@ public class TelaFinal {
         // ===== montagem do cartao =====
         cartao.add(titulo);
         cartao.add(labelPontos);
-        cartao.add(textoFeedback);
+        cartao.add(blocoFeedback);
         cartao.add(labelResumo);
         cartao.add(painelResumo);
         cartao.add(caixaContato);
@@ -194,6 +181,52 @@ public class TelaFinal {
         linha.add(resultado, BorderLayout.EAST);
 
         return linha;
+    }
+
+    // ===== quebra um texto em linhas que cabem numa largura maxima, medindo com FontMetrics real =====
+    // (mais confiavel que usar HTML dentro de JLabel, que varia de comportamento e pode cortar texto)
+    private static List<String> quebrarEmLinhas(String texto, FontMetrics fm, int larguraMaxima) {
+        List<String> linhas = new ArrayList<>();
+
+        for (String paragrafo : texto.split("\n")) {
+            StringBuilder linhaAtual = new StringBuilder();
+            for (String palavra : paragrafo.split(" ")) {
+                String tentativa = linhaAtual.length() == 0 ? palavra : linhaAtual + " " + palavra;
+                if (fm.stringWidth(tentativa) > larguraMaxima && linhaAtual.length() > 0) {
+                    linhas.add(linhaAtual.toString());
+                    linhaAtual = new StringBuilder(palavra);
+                } else {
+                    linhaAtual = new StringBuilder(tentativa);
+                }
+            }
+            linhas.add(linhaAtual.toString());
+        }
+
+        return linhas;
+    }
+
+    // ===== monta um bloco vertical com uma linha (JLabel) por linha de texto ja quebrada =====
+    private static JPanel criarBlocoTexto(String texto, Font fonte, Color cor, int larguraMaxima) {
+        JPanel bloco = new JPanel();
+        bloco.setLayout(new BoxLayout(bloco, BoxLayout.Y_AXIS));
+        bloco.setOpaque(false);
+        bloco.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // FontMetrics "de verdade", sem depender do componente ja estar na tela
+        BufferedImage imagemTemporaria = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = imagemTemporaria.createGraphics();
+        FontMetrics fm = g2.getFontMetrics(fonte);
+        g2.dispose();
+
+        for (String linha : quebrarEmLinhas(texto, fm, larguraMaxima)) {
+            JLabel label = new JLabel(linha);
+            label.setFont(fonte);
+            label.setForeground(cor);
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            bloco.add(label);
+        }
+
+        return bloco;
     }
 
     // ===== feedback educativo final, de acordo com a faixa de pontuacao =====
