@@ -15,11 +15,11 @@ public class TelaFinal {
     private static final Color COR_CAIXA_INFO    = new Color(45, 20, 70);
 
     // ===== fontes =====
-    private static final Font FONTE_TITULO     = new Font("Monospaced", Font.BOLD, 30);
-    private static final Font FONTE_PONTOS     = new Font("Monospaced", Font.BOLD, 22);
-    private static final Font FONTE_TEXTO      = new Font("Monospaced", Font.PLAIN, 15);
-    private static final Font FONTE_SUBTITULO  = new Font("Monospaced", Font.BOLD, 15);
-    private static final Font FONTE_CATEGORIA  = new Font("Monospaced", Font.BOLD, 14);
+    private static final Font FONTE_TITULO     = new Font("Monospaced", Font.BOLD, 36);
+    private static final Font FONTE_PONTOS     = new Font("Monospaced", Font.BOLD, 28);
+    private static final Font FONTE_TEXTO      = new Font("Monospaced", Font.PLAIN, 18);
+    private static final Font FONTE_SUBTITULO  = new Font("Monospaced", Font.BOLD, 18);
+    private static final Font FONTE_CATEGORIA  = new Font("Monospaced", Font.BOLD, 17);
 
     // ===== monta a tela final completa =====
     public static JPanel criarTelaFinal(int pontos, Map<String, int[]> resultadosPorCategoria,
@@ -56,7 +56,7 @@ public class TelaFinal {
         cartao.setOpaque(false);
         cartao.setLayout(new BoxLayout(cartao, BoxLayout.Y_AXIS));
         cartao.setBorder(BorderFactory.createEmptyBorder(25, 40, 25, 40));
-        cartao.setPreferredSize(new Dimension(620, 760));
+        cartao.setPreferredSize(new Dimension(640, 830));
 
         // ===== titulo =====
         JLabel titulo = new JLabel("▶ FIM DE JOGO!");
@@ -82,7 +82,7 @@ public class TelaFinal {
         textoFeedback.setLineWrap(true);
         textoFeedback.setWrapStyleWord(true);
         textoFeedback.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textoFeedback.setMaximumSize(new Dimension(540, 110));
+        textoFeedback.setMaximumSize(new Dimension(560, 140));
         textoFeedback.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         // ===== titulo do resumo por categoria =====
@@ -97,7 +97,7 @@ public class TelaFinal {
         painelResumo.setLayout(new BoxLayout(painelResumo, BoxLayout.Y_AXIS));
         painelResumo.setOpaque(false);
         painelResumo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelResumo.setMaximumSize(new Dimension(540, 170));
+        painelResumo.setMaximumSize(new Dimension(560, 200));
         painelResumo.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         for (Map.Entry<String, int[]> entrada : resultadosPorCategoria.entrySet()) {
@@ -113,7 +113,7 @@ public class TelaFinal {
         caixaContato.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(COR_BORDA, 2),
                 BorderFactory.createEmptyBorder(12, 16, 12, 16)));
-        caixaContato.setMaximumSize(new Dimension(540, 130));
+        caixaContato.setMaximumSize(new Dimension(560, 150));
 
         JLabel tituloContato = new JLabel("PRECISA DE AJUDA OU CONHECE ALGUÉM QUE PRECISA?");
         tituloContato.setFont(FONTE_SUBTITULO);
@@ -172,7 +172,7 @@ public class TelaFinal {
 
         JPanel linha = new JPanel(new BorderLayout());
         linha.setOpaque(false);
-        linha.setMaximumSize(new Dimension(540, 24));
+        linha.setMaximumSize(new Dimension(560, 30));
         linha.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel nome = new JLabel(categoria);
