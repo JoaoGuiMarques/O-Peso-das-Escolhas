@@ -16,17 +16,17 @@ public class DialogoPersonalizado extends JDialog {
     private static final Color COR_BOTAO_BORDA  = new Color(160, 90, 220);
     private static final Color COR_TITULO       = new Color(200, 150, 255);
 
-    // ===== fonte pixelada (aumentada para deixar a letra e a janela maiores) =====
-    private static final Font FONTE_TITULO  = new Font("Monospaced", Font.BOLD, 22);
-    private static final Font FONTE_TEXTO   = new Font("Monospaced", Font.PLAIN, 20);
-    private static final Font FONTE_BOTAO   = new Font("Monospaced", Font.BOLD, 17);
+    // ===== fonte pixelada (aumentada e em negrito para melhor leitura) =====
+    private static final Font FONTE_TITULO  = new Font("Monospaced", Font.BOLD, 28);
+    private static final Font FONTE_TEXTO   = new Font("Monospaced", Font.BOLD, 26);
+    private static final Font FONTE_BOTAO   = new Font("Monospaced", Font.BOLD, 26);
 
     // ===== quantidade de caracteres por linha do texto (define a largura da caixa) =====
     private static final int COLUNAS_TEXTO = 42;
 
-    // ===== tamanho da imagem exibida no dialogo =====
-    private static final int LARGURA_IMAGEM = 190;
-    private static final int ALTURA_IMAGEM  = 240;
+    // ===== tamanho da imagem exibida no dialogo (compactada, mais baixa) =====
+    private static final int LARGURA_IMAGEM = 130;
+    private static final int ALTURA_IMAGEM  = 130;
 
     // ===== resultado =====
     private int escolha = -1;
@@ -47,7 +47,7 @@ public class DialogoPersonalizado extends JDialog {
         painelPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         painelPrincipal.setOpaque(false);
 
-        // ===== cabecalho (titulo + linha separadora que acompanha a fonte) =====
+        // ===== cabecalho (apenas titulo) =====
         JPanel cabecalho = criarCabecalho();
 
         // ===== texto da pergunta (dialogo), tamanho cresce com a fonte =====
@@ -60,7 +60,7 @@ public class DialogoPersonalizado extends JDialog {
         textoPergunta.setLineWrap(true);
         textoPergunta.setWrapStyleWord(true);
         textoPergunta.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
-        textoPergunta.setPreferredSize(new Dimension(420, 180));
+        textoPergunta.setPreferredSize(new Dimension(640, 220));
 
 
         // ===== painel dos botoes =====
@@ -106,9 +106,8 @@ public class DialogoPersonalizado extends JDialog {
 
         setContentPane(painelPrincipal);
         pack();
-        setMinimumSize(new Dimension(780, 500));
+        setMinimumSize(new Dimension(760, 460));
         setLocationRelativeTo(pai);
-        pack();
     }
 
     // ===== construtor para a mensagem simples (sem imagem) =====
@@ -127,7 +126,7 @@ public class DialogoPersonalizado extends JDialog {
         painelPrincipal.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         painelPrincipal.setOpaque(false);
 
-        // ===== cabecalho (titulo + linha separadora que acompanha a fonte) =====
+        // ===== cabecalho (apenas titulo) =====
         JPanel cabecalho = criarCabecalho();
 
         // ===== mensagem, tamanho cresce com a fonte =====
@@ -144,8 +143,8 @@ public class DialogoPersonalizado extends JDialog {
         textoMensagem.setColumns(COLUNAS_TEXTO);
         textoMensagem.setRows(Math.max(2, textoQuebrado.split("\n").length + 1));
 
-        // ===== botao "OK" =====
-        JButton botaoOk = new BotaoOpcao("[ OK ]");
+        // ===== botao "AVANÇAR" =====
+        JButton botaoOk = new BotaoOpcao("[ AVANÇAR ]");
         botaoOk.addActionListener(e -> dispose());
 
         JPanel painelBotao = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -168,7 +167,7 @@ public class DialogoPersonalizado extends JDialog {
 
         setContentPane(painelPrincipal);
         pack();
-        setMinimumSize(new Dimension(420, 220));
+        setMinimumSize(new Dimension(560, 260));
         setLocationRelativeTo(pai);
     }
 
@@ -197,7 +196,7 @@ public class DialogoPersonalizado extends JDialog {
         };
     }
 
-    // ===== cabecalho com titulo + linha separadora dinamica (acompanha a fonte, sem pixel fixo) =====
+    // ===== cabecalho apenas com o titulo (sem a linha separadora que aparecia no topo) =====
     private JPanel criarCabecalho() {
         JLabel titulo = new JLabel("▶ O PESO DAS ESCOLHAS");
         titulo.setFont(FONTE_TITULO);
@@ -205,21 +204,11 @@ public class DialogoPersonalizado extends JDialog {
         titulo.setAlignmentX(Component.LEFT_ALIGNMENT);
         titulo.setBorder(BorderFactory.createEmptyBorder());
 
-        // ===== linha separadora: componente real, nao pixel fixo, se posiciona sozinha =====
-        JPanel linha = new JPanel();
-        linha.setBackground(COR_BORDA);
-        linha.setOpaque(true);
-        linha.setAlignmentX(Component.LEFT_ALIGNMENT);
-        linha.setPreferredSize(new Dimension(10, 2));
-        linha.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
-
         JPanel cabecalho = new JPanel();
         cabecalho.setLayout(new BoxLayout(cabecalho, BoxLayout.Y_AXIS));
         cabecalho.setOpaque(false);
         cabecalho.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
         cabecalho.add(titulo);
-        cabecalho.add(Box.createVerticalStrut(8));
-        cabecalho.add(linha);
 
         return cabecalho;
     }
@@ -257,22 +246,26 @@ public class DialogoPersonalizado extends JDialog {
         return envoltorio;
     }
 
-    // ===== dimensoes do botao de opcao =====
-    private static final int LARGURA_BOTAO             = 420;
-    private static final int PADDING_HORIZONTAL_BOTAO  = 24;
-    private static final int PADDING_VERTICAL_BOTAO    = 16;
-    private static final int ALTURA_MINIMA_BOTAO       = 45;
+    // ===== dimensoes do botao de opcao (aumentado dos lados) =====
+    private static final int LARGURA_BOTAO             = 660;
+    private static final int PADDING_HORIZONTAL_BOTAO  = 32;
+    private static final int PADDING_VERTICAL_BOTAO    = 18;
+    private static final int ALTURA_MINIMA_BOTAO       = 52;
 
     // ===== botao com texto quebrado por largura em pixels e desenhado manualmente, =====
-    // ===== crescendo de altura sozinho quando o texto da opcao e mais longo =====
+    // ===== crescendo de altura sozinho quando o texto da opcao e mais longo, e =====
+    // ===== esticando horizontalmente para preencher a largura da janela =====
     private class BotaoOpcao extends JButton {
 
+        private final String textoOriginal;
         private List<String> linhas;
         private int alturaCalculada;
+        private int ultimaLarguraCalculada = -1;
 
         BotaoOpcao(String texto) {
 
             super();
+            this.textoOriginal = texto;
             setText(""); // o texto e desenhado manualmente em paintComponent, ja quebrado em linhas
 
             setFont(FONTE_BOTAO);
@@ -287,13 +280,30 @@ public class DialogoPersonalizado extends JDialog {
             setHorizontalAlignment(SwingConstants.CENTER);
             setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            // ===== quebra o texto respeitando a largura real do botao (nao a quantidade de caracteres) =====
-            FontMetrics fm = getFontMetrics(FONTE_BOTAO);
-            int larguraDisponivel = LARGURA_BOTAO - PADDING_HORIZONTAL_BOTAO;
-            linhas = quebrarTextoBotao(texto, larguraDisponivel, fm);
+            // ===== calculo inicial (usado antes do layout final definir a largura real) =====
+            recalcularLinhas(LARGURA_BOTAO, getFontMetrics(FONTE_BOTAO));
+
+            // ===== quando a largura real (esticada pelo layout) muda, recalcula a quebra de texto =====
+            addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    if (getWidth() > 0 && getWidth() != ultimaLarguraCalculada) {
+                        recalcularLinhas(getWidth(), getFontMetrics(FONTE_BOTAO));
+                        revalidate();
+                        repaint();
+                    }
+                }
+            });
+        }
+
+        // ===== recalcula as linhas de texto e a altura do botao para uma dada largura =====
+        private void recalcularLinhas(int larguraAtual, FontMetrics fm) {
+            int larguraDisponivel = larguraAtual - PADDING_HORIZONTAL_BOTAO;
+            linhas = quebrarTextoBotao(textoOriginal, larguraDisponivel, fm);
 
             int alturaTexto = linhas.size() * fm.getHeight();
             alturaCalculada = Math.max(ALTURA_MINIMA_BOTAO, alturaTexto + PADDING_VERTICAL_BOTAO);
+            ultimaLarguraCalculada = larguraAtual;
         }
 
         // ===== quebra o texto em linhas usando largura em pixels (fonte monoespacada ou nao) =====
@@ -317,6 +327,8 @@ public class DialogoPersonalizado extends JDialog {
             return resultado;
         }
 
+        // ===== largura preferida "base"; a largura final e esticada pelo BoxLayout ate =====
+        // ===== preencher o container, pois getMaximumSize() abaixo libera a largura =====
         @Override
         public Dimension getPreferredSize() {
             return new Dimension(LARGURA_BOTAO, alturaCalculada);
@@ -324,12 +336,12 @@ public class DialogoPersonalizado extends JDialog {
 
         @Override
         public Dimension getMaximumSize() {
-            return getPreferredSize();
+            return new Dimension(Integer.MAX_VALUE, alturaCalculada);
         }
 
         @Override
         public Dimension getMinimumSize() {
-            return getPreferredSize();
+            return new Dimension(240, alturaCalculada);
         }
 
         @Override

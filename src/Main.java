@@ -9,6 +9,7 @@ public class Main {
         // ===== janela unica =====
         JFrame janela = new JFrame("O Peso das Escolhas");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela.setUndecorated(true); // remove a barra de título do sistema operacional
 
         // ===== cardlayout =====
         CardLayout cardLayout = new CardLayout();
@@ -151,10 +152,6 @@ public class Main {
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD, 30));
                 g.drawString("Pontos: " + jogo.getPontos(), 30, 50);
-
-                // ===== fase =====
-                g.setFont(new Font("Arial", Font.BOLD, 20));
-                g.drawString("Fase " + jogo.getMapaAtual() + " de 3", 30, 85);
             }
         };
         painelJogo.setLayout(null);
@@ -215,6 +212,7 @@ public class Main {
                     case KeyEvent.VK_S: case KeyEvent.VK_DOWN:  jogoRef[0].setS(true); break;
                     case KeyEvent.VK_A: case KeyEvent.VK_LEFT:  jogoRef[0].setA(true); break;
                     case KeyEvent.VK_D: case KeyEvent.VK_RIGHT: jogoRef[0].setD(true); break;
+                    case KeyEvent.VK_ESCAPE: janela.dispose(); System.exit(0); break;
                 }
             }
             @Override

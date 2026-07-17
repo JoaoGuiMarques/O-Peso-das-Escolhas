@@ -18,11 +18,11 @@ public class TelaFinal {
     private static final Color COR_CAIXA_INFO    = new Color(45, 20, 70);
 
     // ===== fontes =====
-    private static final Font FONTE_TITULO     = new Font("Monospaced", Font.BOLD, 36);
-    private static final Font FONTE_PONTOS     = new Font("Monospaced", Font.BOLD, 28);
-    private static final Font FONTE_TEXTO      = new Font("Monospaced", Font.PLAIN, 18);
-    private static final Font FONTE_SUBTITULO  = new Font("Monospaced", Font.BOLD, 18);
-    private static final Font FONTE_CATEGORIA  = new Font("Monospaced", Font.BOLD, 17);
+    private static final Font FONTE_TITULO     = new Font("Monospaced", Font.BOLD, 42);
+    private static final Font FONTE_PONTOS     = new Font("Monospaced", Font.BOLD, 32);
+    private static final Font FONTE_TEXTO      = new Font("Monospaced", Font.BOLD, 22);
+    private static final Font FONTE_SUBTITULO  = new Font("Monospaced", Font.BOLD, 22);
+    private static final Font FONTE_CATEGORIA  = new Font("Monospaced", Font.BOLD, 21);
 
     // ===== monta a tela final completa =====
     public static JPanel criarTelaFinal(int pontos, Map<String, int[]> resultadosPorCategoria,
@@ -79,7 +79,7 @@ public class TelaFinal {
 
         // ===== feedback educativo, de acordo com a faixa de pontuacao =====
         // quebra de linha calculada manualmente com FontMetrics (mais confiavel que HTML em JLabel)
-        JPanel blocoFeedback = criarBlocoTexto(gerarFeedback(pontos), FONTE_TEXTO, COR_TEXTO, 520);
+        JPanel blocoFeedback = criarBlocoTexto(gerarFeedback(pontos), FONTE_TEXTO, COR_TEXTO, 780);
         blocoFeedback.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         // ===== titulo do resumo por categoria =====
@@ -94,7 +94,7 @@ public class TelaFinal {
         painelResumo.setLayout(new BoxLayout(painelResumo, BoxLayout.Y_AXIS));
         painelResumo.setOpaque(false);
         painelResumo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelResumo.setMaximumSize(new Dimension(560, 260));
+        painelResumo.setMaximumSize(new Dimension(820, 260));
         painelResumo.setBorder(BorderFactory.createEmptyBorder(0, 0, 18, 0));
 
         for (Map.Entry<String, int[]> entrada : resultadosPorCategoria.entrySet()) {
@@ -110,11 +110,11 @@ public class TelaFinal {
         caixaContato.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(COR_BORDA, 2),
                 BorderFactory.createEmptyBorder(12, 16, 12, 16)));
-        caixaContato.setMaximumSize(new Dimension(580, Integer.MAX_VALUE));
+        caixaContato.setMaximumSize(new Dimension(820, Integer.MAX_VALUE));
 
-        JPanel blocoTituloContato = criarBlocoTexto("PRECISA DE AJUDA OU CONHECE ALGUÉM QUE PRECISA?", FONTE_SUBTITULO, COR_TITULO, 500);
-        JPanel blocoDisque100 = criarBlocoTexto("Disque 100 — Direitos Humanos (denúncias em geral)", FONTE_TEXTO, COR_TEXTO, 500);
-        JPanel blocoDisque180 = criarBlocoTexto("Disque 180 — Central de Atendimento à Mulher", FONTE_TEXTO, COR_TEXTO, 500);
+        JPanel blocoTituloContato = criarBlocoTexto("PRECISA DE AJUDA OU CONHECE ALGUÉM QUE PRECISA?", FONTE_SUBTITULO, COR_TITULO, 760);
+        JPanel blocoDisque100 = criarBlocoTexto("Disque 100 — Direitos Humanos (denúncias em geral)", FONTE_TEXTO, COR_TEXTO, 760);
+        JPanel blocoDisque180 = criarBlocoTexto("Disque 180 — Central de Atendimento à Mulher", FONTE_TEXTO, COR_TEXTO, 760);
 
         caixaContato.add(blocoTituloContato);
         caixaContato.add(Box.createVerticalStrut(8));
@@ -159,7 +159,7 @@ public class TelaFinal {
 
         JPanel linha = new JPanel(new BorderLayout());
         linha.setOpaque(false);
-        linha.setMaximumSize(new Dimension(560, 30));
+        linha.setMaximumSize(new Dimension(780, 34));
         linha.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel nome = new JLabel(categoria);

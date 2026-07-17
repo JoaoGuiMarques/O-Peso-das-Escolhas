@@ -144,7 +144,7 @@ public class Jogo {
                         "Humilhar alguém na frente dos outros causa dano à dignidade da pessoa e é uma forma de violência moral. Rir ou ficar calado normaliza esse comportamento — apoiar a vítima ou chamar um adulto responsável faz diferença.", "Moral"),
                 new NPC(0.92, 0.32, "img/npc15.png", "img/violenciaFisica.png",
                         "Vi um colega empurrando a namorada dele na minha frente.",
-                        new String[]{"Isso acontece às vezes.", "Isso é violência física e deve ser denunciado.", "Foi só discussão. ele precisava impor respeito."},
+                        new String[]{"Isso acontece às vezes.", "Isso é violência física e deve ser denunciado.", "Foi só discussão. Ele precisava impor respeito."},
                         1, 2,
                         "Presenciar uma agressão física exige atitude: procurar ajuda, avisar um adulto responsável ou até acionar o Disque 180. Ficar em silêncio contribui para que o ciclo de violência continue.", "Física"),
         };
